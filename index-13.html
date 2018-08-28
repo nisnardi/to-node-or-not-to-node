@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>React or not to React</title>
+</head>
+<body>
+  <h1>React or not to React</h1>
+  <hr>
+  <div id="container"></div>
+
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>  
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  
+  <script>
+    const container = document.querySelector('#container');
+
+    const Break = (props) => {
+      const { color, width } = props;
+      
+      const style = {
+        borderColor: color,
+        borderWidth: width
+      }
+      
+      return React.createElement('hr', { style });
+    }
+
+    const Span = (props) => {
+      return React.createElement('span', {}, props.text);
+    }
+
+    class Title extends React.Component {
+      render() {
+        console.log(this.props);
+        const { text, red } = this.props;
+        let style = {};
+        
+        if (red) {
+          style.color = 'red';
+        }
+
+        const spanComponent1 = React.createElement(Span, { text: `${text} 1`, key: 1 });
+        const spanComponent2 = React.createElement(Span, { text: `${text} 2`, key: 3 });
+        const spanComponent3 = React.createElement(Span, { text: `${text} 3`, key: 5 });
+        const breakElement1 = React.createElement(Break, { color: 'blue', width: 5,  key: 2});
+        const breakElement2 = React.createElement(Break, { color: 'green', width: 3, key: 4});
+        
+        return React.createElement('h1', { style } , [
+          spanComponent1, 
+          breakElement1,
+          spanComponent2,
+          breakElement2, 
+          spanComponent3
+        ]);
+      }
+    }
+    
+    const TitleComponent = React.createElement(Title, { text: 'Hello Winnipeg.js', red: true });
+
+    ReactDOM.render(TitleComponent, container);
+  </script>
+</body>
+</html>
